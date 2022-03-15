@@ -1,0 +1,31 @@
+version: "3.3"
+services:
+  database:
+    container_name: offertly_database
+    image: offertly_database:0.0.1
+    restart: always
+    build:
+      context: ./database
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./database/database.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - offertly_database:/var/lib/postgresql/data
+    networks:
+      - offertly_internal
+  server:
+    depends_on:
+      - database
+    build: .
+    image: offertly_server:0.0.1
+    container_name: offertly_server
+    ports:
+      - "8818:8818"
+    networks:
+      - offertly_internal
+volumes:
+  offertly_database:
+networks:
+  offertly_internal:

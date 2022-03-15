@@ -1,0 +1,24 @@
+springdoc:
+  swagger-ui:
+    path: /
+
+server:
+  port: 8818
+
+spring:
+  profiles:
+    active: '@activatedProperties@'
+  datasource:
+    password: admin
+    username: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    open-in-view: false
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        schema_update:
+          unique_constraint_strategy: RECREATE_QUIETLY
