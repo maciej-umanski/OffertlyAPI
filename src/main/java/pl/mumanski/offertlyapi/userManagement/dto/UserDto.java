@@ -13,6 +13,8 @@ public class UserDto {
     private Long id;
     private String username;
     private String name;
-    private String middleName;
     private String surname;
+    private String phoneNumber;
+    private String city;
+    private String mail;
 }

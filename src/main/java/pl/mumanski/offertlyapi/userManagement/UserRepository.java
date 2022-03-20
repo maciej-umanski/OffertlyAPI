@@ -1,6 +1,8 @@
 package pl.mumanski.offertlyapi.userManagement;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
-interface UserRepository extends PagingAndSortingRepository<User, Long> {
+interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findUserByUsernameAndPassword(String username, String password);
 }
