@@ -1,11 +1,11 @@
-package pl.mumanski.offertlyapi.userManagement.dto;
+package pl.mumanski.offertlyapi.userManagement;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 @Schema
-public class CreateUserDto {
+class CreateUserDto {
     private String username;
     private String password;
     private String name;

@@ -1,7 +1,5 @@
 package pl.mumanski.offertlyapi.userManagement;
 
-import pl.mumanski.offertlyapi.userManagement.dto.CreateUserDto;
-
 import java.util.List;
 
 public interface UserService {

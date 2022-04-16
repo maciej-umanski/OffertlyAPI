@@ -1,4 +1,4 @@
-package pl.mumanski.offertlyapi.userManagement.dto;
+package pl.mumanski.offertlyapi.userManagement;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+class UserDto {
     private Long id;
     private String username;
     private String name;

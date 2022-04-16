@@ -3,7 +3,6 @@ package pl.mumanski.offertlyapi.userManagement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pl.mumanski.offertlyapi.userManagement.dto.CreateUserDto;
 
 import javax.persistence.NoResultException;
 import java.util.List;

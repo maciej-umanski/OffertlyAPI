@@ -11,8 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import pl.mumanski.offertlyapi.userManagement.dto.CreateUserDto;
-import pl.mumanski.offertlyapi.userManagement.dto.UserDto;
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
