@@ -1,9 +1,14 @@
-package pl.mumanski.offertlyapi.userManagement;
+package pl.mumanski.offertlyapi.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pl.mumanski.offertlyapi.userManagement.dto.CreateUserDto;
+import pl.mumanski.offertlyapi.mapper.UserMapper;
+import pl.mumanski.offertlyapi.model.dto.UpdateUserDto;
+import pl.mumanski.offertlyapi.model.entity.User;
+import pl.mumanski.offertlyapi.model.dto.CreateUserDto;
+import pl.mumanski.offertlyapi.repository.UserRepository;
+import pl.mumanski.offertlyapi.service.UserService;
 
 import javax.persistence.NoResultException;
 import java.util.List;
@@ -38,5 +43,15 @@ class UserServiceImpl implements UserService {
         User newUser = userRepository.save(UserMapper.INSTANCE.toUser(createUserDto));
         log.info("Saved new user in repository with id = " + newUser.getId());
         return newUser;
+    }
+
+    public User put(UpdateUserDto updateUserDto, Long id) {
+
+        User existingUser = getUserById(id);
+
+        User newUser = UserMapper.INSTANCE.toUser(updateUserDto);
+        newUser.setId(existingUser.getId());
+
+        return userRepository.save(newUser);
     }
 }

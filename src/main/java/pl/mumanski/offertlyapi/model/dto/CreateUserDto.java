@@ -1,4 +1,4 @@
-package pl.mumanski.offertlyapi.userManagement.dto;
+package pl.mumanski.offertlyapi.model.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -9,8 +9,7 @@ public class CreateUserDto {
     private String username;
     private String password;
     private String name;
-    private String surname;
+    private String lastName;
     private String phoneNumber;
-    private String city;
-    private String mail;
+    private String photoUrl;
 }

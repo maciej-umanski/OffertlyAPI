@@ -1,4 +1,4 @@
-package pl.mumanski.offertlyapi.userManagement;
+package pl.mumanski.offertlyapi.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,8 +11,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import pl.mumanski.offertlyapi.userManagement.dto.CreateUserDto;
-import pl.mumanski.offertlyapi.userManagement.dto.UserDto;
+import pl.mumanski.offertlyapi.mapper.UserMapper;
+import pl.mumanski.offertlyapi.model.dto.UpdateUserDto;
+import pl.mumanski.offertlyapi.model.entity.User;
+import pl.mumanski.offertlyapi.service.UserService;
+import pl.mumanski.offertlyapi.model.dto.CreateUserDto;
+import pl.mumanski.offertlyapi.model.dto.UserDto;
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
@@ -106,6 +110,28 @@ class UserController {
             User user = userService.getUserByCredentials(username, password);
             UserDto userDto = UserMapper.INSTANCE.toUserDto(user);
             return new ResponseEntity<>(userDto, HttpStatus.CREATED);
+        } catch (NoResultException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Operation(operationId = "putUser", summary = "Update User", tags = {"User"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK", content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = UserDto.class)
+                    )),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                    @ApiResponse(responseCode = "404", description = "Not Found")
+            }
+    )
+    @RequestMapping(method = RequestMethod.PUT, value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDto> putUser(@PathVariable @Valid @NotNull Long id,
+                                           @RequestBody @Valid UpdateUserDto updateUserDto) {
+        try {
+            User user = userService.put(updateUserDto, id);
+            UserDto userDto = UserMapper.INSTANCE.toUserDto(user);
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
         } catch (NoResultException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

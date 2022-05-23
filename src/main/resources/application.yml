@@ -22,3 +22,5 @@ spring:
         enable_lazy_load_no_trans: true
         schema_update:
           unique_constraint_strategy: RECREATE_QUIETLY
+  jackson:
+    default-property-inclusion: non_null
