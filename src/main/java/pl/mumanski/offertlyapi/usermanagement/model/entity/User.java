@@ -1,4 +1,4 @@
-package pl.mumanski.offertlyapi.model.entity;
+package pl.mumanski.offertlyapi.usermanagement.model.entity;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
@@ -26,6 +26,9 @@ public class User {
     private OffsetDateTime lastActive;
     private Double averageRate;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     List<Comment> comments;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    Availability availability;
 }

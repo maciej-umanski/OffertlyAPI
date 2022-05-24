@@ -1,12 +1,13 @@
-package pl.mumanski.offertlyapi.model.dto;
+package pl.mumanski.offertlyapi.usermanagement.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.mumanski.offertlyapi.model.entity.Comment;
+import org.springframework.validation.annotation.Validated;
+import pl.mumanski.offertlyapi.usermanagement.model.entity.Comment;
 
-import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import java.time.OffsetDateTime;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Validated
 public class UserDto {
     private Long id;
     private String username;
@@ -26,4 +28,6 @@ public class UserDto {
     private OffsetDateTime lastActive;
     private Double averageRate;
     Set<Comment> comments;
+    @Valid
+    private AvailabilityDto availability;
 }

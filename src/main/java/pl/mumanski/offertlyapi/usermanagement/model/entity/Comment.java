@@ -1,4 +1,4 @@
-package pl.mumanski.offertlyapi.model.entity;
+package pl.mumanski.offertlyapi.usermanagement.model.entity;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 @Data
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String comment;

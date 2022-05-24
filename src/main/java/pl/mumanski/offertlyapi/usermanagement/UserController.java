@@ -1,4 +1,4 @@
-package pl.mumanski.offertlyapi.api;
+package pl.mumanski.offertlyapi.usermanagement;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,12 +11,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import pl.mumanski.offertlyapi.mapper.UserMapper;
-import pl.mumanski.offertlyapi.model.dto.UpdateUserDto;
-import pl.mumanski.offertlyapi.model.entity.User;
-import pl.mumanski.offertlyapi.service.UserService;
-import pl.mumanski.offertlyapi.model.dto.CreateUserDto;
-import pl.mumanski.offertlyapi.model.dto.UserDto;
+import pl.mumanski.offertlyapi.usermanagement.model.dto.CreateCommentDto;
+import pl.mumanski.offertlyapi.usermanagement.model.dto.UpdateUserDto;
+import pl.mumanski.offertlyapi.usermanagement.model.entity.User;
+import pl.mumanski.offertlyapi.usermanagement.model.dto.CreateUserDto;
+import pl.mumanski.offertlyapi.usermanagement.model.dto.UserDto;
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
@@ -41,10 +40,10 @@ class UserController {
             }
     )
     @RequestMapping(method = RequestMethod.POST, value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDto> createUser(@RequestBody CreateUserDto createUserDto) {
+    public ResponseEntity<?> createUser(@RequestBody CreateUserDto createUserDto) {
         User user = userService.register(createUserDto);
         UserDto userDto = UserMapper.INSTANCE.toUserDto(user);
-        return new ResponseEntity<>(userDto, HttpStatus.CREATED);
+        return new ResponseEntity<>(userDto, HttpStatus.CREATED); // todo: EH jak login taki sam
     }
 
     @Operation(operationId = "getUser", summary = "Retrieve User", tags = {"User"},
@@ -130,6 +129,28 @@ class UserController {
                                            @RequestBody @Valid UpdateUserDto updateUserDto) {
         try {
             User user = userService.put(updateUserDto, id);
+            UserDto userDto = UserMapper.INSTANCE.toUserDto(user);
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
+        } catch (NoResultException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Operation(operationId = "addComment", summary = "Add Comment to User", tags = {"Comment"},
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "OK", content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = UserDto.class)
+                    )),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                    @ApiResponse(responseCode = "404", description = "Not Found")
+            }
+    )
+    @RequestMapping(method = RequestMethod.POST, value = "/user/{id}/comment", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDto> addComment(@PathVariable @Valid @NotNull Long id,
+                                              @RequestBody @Valid CreateCommentDto createCommentDto) {
+        try {
+            User user = userService.addComment(createCommentDto, id);
             UserDto userDto = UserMapper.INSTANCE.toUserDto(user);
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         } catch (NoResultException e) {
