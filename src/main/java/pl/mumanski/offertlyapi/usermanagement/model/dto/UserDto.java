@@ -17,6 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Validated
 public class UserDto {
+    Set<Comment> comments;
     private Long id;
     private String username;
     private String password;
@@ -27,7 +28,6 @@ public class UserDto {
     private String phoneNumber;
     private OffsetDateTime lastActive;
     private Double averageRate;
-    Set<Comment> comments;
     @Valid
     private AvailabilityDto availability;
 }

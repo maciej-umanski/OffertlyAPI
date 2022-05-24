@@ -1,6 +1,7 @@
 package pl.mumanski.offertlyapi.usermanagement;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.mumanski.offertlyapi.usermanagement.model.dto.CreateCommentDto;
 import pl.mumanski.offertlyapi.usermanagement.model.dto.UpdateUserDto;
@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 class UserController {
@@ -71,7 +71,7 @@ class UserController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = UserDto.class)
+                            array = @ArraySchema(schema = @Schema(implementation = UserDto.class))
                     )),
                     @ApiResponse(responseCode = "401", description = "Unauthorized"),
                     @ApiResponse(responseCode = "404", description = "Not Found")
@@ -108,7 +108,7 @@ class UserController {
         try {
             User user = userService.getUserByCredentials(username, password);
             UserDto userDto = UserMapper.INSTANCE.toUserDto(user);
-            return new ResponseEntity<>(userDto, HttpStatus.CREATED);
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
         } catch (NoResultException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
