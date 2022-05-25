@@ -10,14 +10,16 @@ import java.util.List;
 @Table(name = "users")
 @Data
 public class User {
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Comment> comments;
+    @OneToOne(cascade = CascadeType.ALL)
+    Availability availability;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(unique = true)
     private String username;
     private String password;
-
     private String name;
     private String lastName;
     private String photoUrl;
@@ -25,10 +27,4 @@ public class User {
     private String phoneNumber;
     private OffsetDateTime lastActive;
     private Double averageRate;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    List<Comment> comments;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    Availability availability;
 }

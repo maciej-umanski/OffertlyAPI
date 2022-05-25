@@ -18,7 +18,7 @@ import pl.mumanski.offertlyapi.postmanagement.model.entity.Post;
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -84,7 +84,7 @@ class PostController {
                 .toList();
 
         if (posts.isEmpty()) {
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(posts, HttpStatus.OK);
         }

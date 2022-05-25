@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-class PostServiceImpl implements PostService{
+class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
 

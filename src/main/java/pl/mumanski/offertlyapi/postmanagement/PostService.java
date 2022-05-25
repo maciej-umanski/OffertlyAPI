@@ -7,6 +7,8 @@ import java.util.List;
 
 interface PostService {
     Post create(CreatePostDto createPostDto);
+
     Post getPostById(Long id);
+
     List<Post> getAllPosts();
 }

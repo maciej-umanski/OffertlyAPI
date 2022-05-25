@@ -72,13 +72,13 @@ class UserServiceImpl implements UserService {
 
         List<Comment> comments = existingUser.getComments();
 
-        if(Objects.isNull(comments)) {
+        if (Objects.isNull(comments)) {
             comments = new LinkedList<>();
         }
 
         comments.add(comment);
         existingUser = userRepository.save(existingUser);
-        log.info("Added comment to user with id = {}, and content {}", id,  comment);
+        log.info("Added comment to user with id = {}, and content {}", id, comment);
 
         return existingUser;
     }

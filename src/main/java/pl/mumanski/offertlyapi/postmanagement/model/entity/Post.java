@@ -1,7 +1,7 @@
 package pl.mumanski.offertlyapi.postmanagement.model.entity;
 
 import lombok.Data;
-import pl.mumanski.offertlyapi.postmanagement.model.enums.Category;
+import pl.mumanski.offertlyapi.categorymanagement.model.entity.Category;
 import pl.mumanski.offertlyapi.usermanagement.model.entity.User;
 
 import javax.persistence.*;
@@ -23,7 +23,7 @@ public class Post {
     private String currency;
     private String photoUrl;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Category category;
 
     @ManyToOne(cascade = CascadeType.ALL)

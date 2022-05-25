@@ -14,7 +14,10 @@ interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     User toUser(CreateUserDto user);
+
     User toUser(UpdateUserDto user);
+
     UserDto toUserDto(User user);
+
     Comment toComment(CreateCommentDto comment);
 }

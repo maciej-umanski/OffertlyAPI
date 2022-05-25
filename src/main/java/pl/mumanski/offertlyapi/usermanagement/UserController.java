@@ -12,15 +12,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.mumanski.offertlyapi.usermanagement.model.dto.CreateCommentDto;
-import pl.mumanski.offertlyapi.usermanagement.model.dto.UpdateUserDto;
-import pl.mumanski.offertlyapi.usermanagement.model.entity.User;
 import pl.mumanski.offertlyapi.usermanagement.model.dto.CreateUserDto;
+import pl.mumanski.offertlyapi.usermanagement.model.dto.UpdateUserDto;
 import pl.mumanski.offertlyapi.usermanagement.model.dto.UserDto;
+import pl.mumanski.offertlyapi.usermanagement.model.entity.User;
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -40,7 +40,7 @@ class UserController {
             }
     )
     @RequestMapping(method = RequestMethod.POST, value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createUser(@RequestBody CreateUserDto createUserDto) {
+    public ResponseEntity<UserDto> createUser(@RequestBody CreateUserDto createUserDto) {
         User user = userService.register(createUserDto);
         UserDto userDto = UserMapper.INSTANCE.toUserDto(user);
         return new ResponseEntity<>(userDto, HttpStatus.CREATED); // todo: EH jak login taki sam
@@ -84,7 +84,7 @@ class UserController {
                 .map(UserMapper.INSTANCE::toUserDto).toList();
 
         if (users.isEmpty()) {
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(users, HttpStatus.OK);
         }

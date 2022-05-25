@@ -2,7 +2,7 @@ package pl.mumanski.offertlyapi.postmanagement.model.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import pl.mumanski.offertlyapi.postmanagement.model.enums.Category;
+import pl.mumanski.offertlyapi.categorymanagement.model.dto.CategoryDto;
 
 import java.time.OffsetDateTime;
 
@@ -16,5 +16,5 @@ public class CreatePostDto {
     private Double price;
     private String currency;
     private String photoUrl;
-    private Category category;
+    private CategoryDto category;
 }
