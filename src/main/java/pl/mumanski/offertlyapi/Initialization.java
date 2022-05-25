@@ -23,7 +23,8 @@ public class Initialization {
 
     @PostConstruct
     public void init() {
-        if (!categoryService.getAllCategories().isEmpty())
+        if (categoryService.getAllCategories().isEmpty()) {
             CATEGORIES.forEach((key, value) -> categoryService.create(CreateCategoryDto.of(key, value)));
+        }
     }
 }
