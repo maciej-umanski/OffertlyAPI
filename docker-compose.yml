@@ -2,7 +2,7 @@ version: "3.3"
 services:
   database:
     container_name: offertly_database
-    image: offertly_database:0.0.1
+    image: offertly_database:0.0.2
     restart: always
     build:
       context: ./database
@@ -19,7 +19,7 @@ services:
     depends_on:
       - database
     build: .
-    image: offertly_server:0.0.1
+    image: offertly_server:0.0.2
     container_name: offertly_server
     ports:
       - "8818:8818"
