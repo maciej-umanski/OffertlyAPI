@@ -24,6 +24,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(originPatterns = "*")
 class PostController {
 
     private final PostService postService;
