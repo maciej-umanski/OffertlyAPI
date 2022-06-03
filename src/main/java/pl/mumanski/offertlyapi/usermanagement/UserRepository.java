@@ -5,6 +5,6 @@ import pl.mumanski.offertlyapi.usermanagement.model.entity.User;
 
 import java.util.Optional;
 
-interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findUserByUsernameAndPassword(String username, String password);
 }

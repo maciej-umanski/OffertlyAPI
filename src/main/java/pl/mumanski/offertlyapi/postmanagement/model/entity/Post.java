@@ -6,6 +6,7 @@ import pl.mumanski.offertlyapi.usermanagement.model.entity.User;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -22,10 +23,11 @@ public class Post {
     private Double price;
     private String currency;
     private String photoUrl;
+    private Integer reportCount = 0;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Category category;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    private List<Category> categories;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private User author;
 }

@@ -3,13 +3,16 @@ package pl.mumanski.offertlyapi.usermanagement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.mumanski.offertlyapi.postmanagement.PostService;
 import pl.mumanski.offertlyapi.usermanagement.model.dto.CreateCommentDto;
 import pl.mumanski.offertlyapi.usermanagement.model.dto.CreateUserDto;
 import pl.mumanski.offertlyapi.usermanagement.model.dto.UpdateUserDto;
+import pl.mumanski.offertlyapi.usermanagement.model.entity.Availability;
 import pl.mumanski.offertlyapi.usermanagement.model.entity.Comment;
 import pl.mumanski.offertlyapi.usermanagement.model.entity.User;
 
 import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,9 +21,11 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PostService postService;
 
     public List<User> getAllUsers() {
         log.info("Retrieving all users from repository");
@@ -48,7 +53,15 @@ class UserServiceImpl implements UserService {
     }
 
     public User register(CreateUserDto createUserDto) {
-        User newUser = userRepository.save(UserMapper.INSTANCE.toUser(createUserDto));
+        User newUser = UserMapper.INSTANCE.toUser(createUserDto);
+
+        newUser.setLastActive(OffsetDateTime.now());
+        if(Objects.isNull(newUser.getAvailability())) {
+            newUser.setAvailability(Availability.empty());
+        }
+
+        userRepository.save(newUser);
+
         log.info("Saved new user in repository with id = " + newUser.getId());
         return newUser;
     }
@@ -81,5 +94,11 @@ class UserServiceImpl implements UserService {
         log.info("Added comment to user with id = {}, and content {}", id, comment);
 
         return existingUser;
+    }
+
+    public void deleteUser(Long id) {
+        log.info("Deleted user with id = " + id);
+        postService.deletePostsByAuthorId(id);
+        userRepository.deleteById(id);
     }
 }

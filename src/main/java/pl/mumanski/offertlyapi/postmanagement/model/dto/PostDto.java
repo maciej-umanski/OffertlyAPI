@@ -5,6 +5,7 @@ import lombok.Data;
 import pl.mumanski.offertlyapi.categorymanagement.model.dto.CategoryDto;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Data
 @Schema
@@ -16,5 +17,7 @@ public class PostDto {
     private Double price;
     private String currency;
     private String photoUrl;
-    private CategoryDto category;
+    private Integer reportCount;
+    private List<CategoryDto> categories;
+    private AuthorDto author;
 }

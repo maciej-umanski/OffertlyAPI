@@ -6,12 +6,14 @@ import org.springframework.stereotype.Service;
 import pl.mumanski.offertlyapi.categorymanagement.model.dto.CreateCategoryDto;
 import pl.mumanski.offertlyapi.categorymanagement.model.entity.Category;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CategoryServiceImpl implements CategoryService {
+@Transactional
+class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
 
@@ -24,5 +26,9 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> getAllCategories() {
         log.info("Retrieving all categories from repository");
         return categoryRepository.findAll();
+    }
+    public Category getCategory(Long id) {
+        log.info("Retrieving category from repository with id = " + id);
+        return categoryRepository.getById(id);
     }
 }

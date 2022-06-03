@@ -26,7 +26,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "*")
 class UserController {
 
     private final UserService userService;
@@ -102,7 +101,7 @@ class UserController {
                     @ApiResponse(responseCode = "404", description = "Not Found")
             }
     )
-    @RequestMapping(method = RequestMethod.GET, value = "/user/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, value = "/user/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> authenticateUser(
             @RequestParam @Valid @NotNull String username,
             @RequestParam @Valid @NotNull String password) {
@@ -157,5 +156,21 @@ class UserController {
         } catch (NoResultException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @Operation(operationId = "deleteUser", summary = "Delete User", tags = {"User"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK", content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = UserDto.class)
+                    )),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                    @ApiResponse(responseCode = "404", description = "Not Found")
+            }
+    )
+    @RequestMapping(method = RequestMethod.DELETE, value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteUser(@PathVariable @Valid @NotNull Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }

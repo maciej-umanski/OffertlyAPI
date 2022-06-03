@@ -22,7 +22,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(originPatterns = "*", origins = "*")
 class CategoryController {
 
     private final CategoryService categoryService;

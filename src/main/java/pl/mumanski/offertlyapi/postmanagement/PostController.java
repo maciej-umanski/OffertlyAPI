@@ -24,7 +24,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(originPatterns = "*")
 class PostController {
 
     private final PostService postService;
@@ -90,6 +89,42 @@ class PostController {
             return new ResponseEntity<>(posts, HttpStatus.OK);
         }
 
+    }
+
+    @Operation(operationId = "reportPost", summary = "Report Post", tags = {"Post"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK", content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = PostDto.class)
+                    )),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            }
+    )
+    @RequestMapping(method = RequestMethod.POST, value = "/post/{id}/report", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PostDto> reportPost(@PathVariable @Valid @NotNull Long id) {
+        try {
+            Post post = postService.reportPost(id);
+            PostDto postDto = PostMapper.INSTANCE.toPostDto(post);
+            return new ResponseEntity<>(postDto, HttpStatus.OK);
+        } catch (NoResultException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Operation(operationId = "deletePost", summary = "Delete Post", tags = {"Post"},
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK", content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = PostDto.class)
+                    )),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized"),
+                    @ApiResponse(responseCode = "404", description = "Not Found")
+            }
+    )
+    @RequestMapping(method = RequestMethod.DELETE, value = "/post/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deletePost(@PathVariable @Valid @NotNull Long id) {
+        postService.deletePostById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
