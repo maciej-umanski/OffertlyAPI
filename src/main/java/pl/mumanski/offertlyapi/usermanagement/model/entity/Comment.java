@@ -14,7 +14,7 @@ public class Comment {
     private Long id;
 
     private String comment;
-    private OffsetDateTime created = OffsetDateTime.now();
+    private OffsetDateTime created;
     private Double rate;
     private Long authorId;
 }

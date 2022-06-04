@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 public class User {
     @OneToMany(cascade = CascadeType.ALL)
-    List<Comment> comments = Collections.emptyList();
+    List<Comment> comments;
     @OneToOne(cascade = CascadeType.ALL)
     Availability availability;
     @Id
@@ -24,7 +24,7 @@ public class User {
     private String name;
     private String lastName;
     private String photoUrl;
-    private OffsetDateTime created = OffsetDateTime.now();
+    private OffsetDateTime created;
     private String phoneNumber;
     private OffsetDateTime lastActive;
     private Double averageRate;

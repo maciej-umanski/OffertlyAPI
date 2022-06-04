@@ -14,6 +14,7 @@ import pl.mumanski.offertlyapi.usermanagement.model.entity.User;
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -60,6 +61,9 @@ class UserServiceImpl implements UserService {
             newUser.setAvailability(Availability.empty());
         }
 
+        newUser.setCreated(OffsetDateTime.now());
+        newUser.setComments(Collections.emptyList());
+
         userRepository.save(newUser);
 
         log.info("Saved new user in repository with id = " + newUser.getId());
@@ -86,6 +90,7 @@ class UserServiceImpl implements UserService {
     public User addComment(CreateCommentDto createCommentDto, Long id) {
         User existingUser = getUserById(id);
         Comment comment = UserMapper.INSTANCE.toComment(createCommentDto);
+        comment.setCreated(OffsetDateTime.now());
 
         List<Comment> comments = existingUser.getComments();
 

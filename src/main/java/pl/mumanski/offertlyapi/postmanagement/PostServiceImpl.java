@@ -12,6 +12,7 @@ import pl.mumanski.offertlyapi.usermanagement.model.entity.User;
 
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
+import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,6 +39,7 @@ class PostServiceImpl implements PostService {
 
         post.setAuthor(user);
         post.setCategories(categories);
+        post.setCreated(OffsetDateTime.now());
 
         postRepository.save(post);
 

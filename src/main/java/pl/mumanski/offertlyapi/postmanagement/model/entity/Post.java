@@ -18,7 +18,7 @@ public class Post {
     private Long id;
 
     private String title;
-    private OffsetDateTime created = OffsetDateTime.now();
+    private OffsetDateTime created;
     private String city;
     private Double price;
     private String currency;
