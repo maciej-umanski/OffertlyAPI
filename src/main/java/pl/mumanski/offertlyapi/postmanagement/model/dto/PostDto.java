@@ -20,4 +20,5 @@ public class PostDto {
     private Integer reportCount;
     private List<CategoryDto> categories;
     private AuthorDto author;
+    private String description;
 }

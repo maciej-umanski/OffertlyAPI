@@ -70,7 +70,11 @@ class UserServiceImpl implements UserService {
         User existingUser = getUserById(id);
 
         User newUser = UserMapper.INSTANCE.toUser(updateUserDto);
+
         newUser.setId(existingUser.getId());
+        newUser.setUsername(existingUser.getUsername());
+        newUser.setLastActive(existingUser.getLastActive());
+        newUser.setCreated(existingUser.getCreated());
 
         log.info("Updated user in repository with id = " + newUser.getId());
 

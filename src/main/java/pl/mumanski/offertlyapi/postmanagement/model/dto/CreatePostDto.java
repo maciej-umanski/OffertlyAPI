@@ -15,4 +15,5 @@ public class CreatePostDto {
     private String photoUrl;
     private List<Long> categories;
     private Long authorId;
+    private String description;
 }

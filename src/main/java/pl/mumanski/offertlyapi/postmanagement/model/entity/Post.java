@@ -18,12 +18,13 @@ public class Post {
     private Long id;
 
     private String title;
-    private OffsetDateTime created;
+    private OffsetDateTime created = OffsetDateTime.now();
     private String city;
     private Double price;
     private String currency;
     private String photoUrl;
     private Integer reportCount = 0;
+    private String description;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Category> categories;

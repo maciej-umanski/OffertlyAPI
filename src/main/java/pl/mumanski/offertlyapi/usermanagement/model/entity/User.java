@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,7 @@ import java.util.List;
 @Data
 public class User {
     @OneToMany(cascade = CascadeType.ALL)
-    List<Comment> comments;
+    List<Comment> comments = Collections.emptyList();
     @OneToOne(cascade = CascadeType.ALL)
     Availability availability;
     @Id
@@ -23,8 +24,9 @@ public class User {
     private String name;
     private String lastName;
     private String photoUrl;
-    private OffsetDateTime created;
+    private OffsetDateTime created = OffsetDateTime.now();
     private String phoneNumber;
     private OffsetDateTime lastActive;
     private Double averageRate;
+    private String city;
 }
