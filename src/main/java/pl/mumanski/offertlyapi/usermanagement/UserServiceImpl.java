@@ -99,6 +99,11 @@ class UserServiceImpl implements UserService {
         }
 
         comments.add(comment);
+
+        Double existingAverageRate = Objects.nonNull(existingUser.getAverageRate() ) ? existingUser.getAverageRate() : 0;
+        Double newAverageRate = (existingAverageRate + comment.getRate()) / comments.size();
+        existingUser.setAverageRate(newAverageRate);
+
         existingUser = userRepository.save(existingUser);
         log.info("Added comment to user with id = {}, and content {}", id, comment);
 
