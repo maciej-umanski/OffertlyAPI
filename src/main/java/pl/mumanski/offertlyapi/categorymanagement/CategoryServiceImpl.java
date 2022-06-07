@@ -27,6 +27,7 @@ class CategoryServiceImpl implements CategoryService {
         log.info("Retrieving all categories from repository");
         return categoryRepository.findAll();
     }
+
     public Category getCategory(Long id) {
         log.info("Retrieving category from repository with id = " + id);
         return categoryRepository.getById(id);

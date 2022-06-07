@@ -15,14 +15,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Category {
 
-    public static Category fromId(Long id) {
-        return Category.builder().id(id).build();
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String namePl;
     private String nameEng;
+
+    public static Category fromId(Long id) {
+        return Category.builder().id(id).build();
+    }
 }

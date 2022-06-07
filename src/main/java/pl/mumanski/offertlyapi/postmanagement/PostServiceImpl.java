@@ -61,7 +61,7 @@ class PostServiceImpl implements PostService {
 
     public Post reportPost(Long id) {
         log.info("Searching repository for post with id = " + id);
-        Post post =  postRepository
+        Post post = postRepository
                 .findById(id)
                 .orElseThrow(NoResultException::new);
 

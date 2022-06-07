@@ -57,7 +57,7 @@ class UserServiceImpl implements UserService {
         User newUser = UserMapper.INSTANCE.toUser(createUserDto);
 
         newUser.setLastActive(OffsetDateTime.now());
-        if(Objects.isNull(newUser.getAvailability())) {
+        if (Objects.isNull(newUser.getAvailability())) {
             newUser.setAvailability(Availability.empty());
         }
 
@@ -100,7 +100,7 @@ class UserServiceImpl implements UserService {
 
         comments.add(comment);
 
-        Double existingAverageRate = Objects.nonNull(existingUser.getAverageRate() ) ? existingUser.getAverageRate() : 0;
+        Double existingAverageRate = Objects.nonNull(existingUser.getAverageRate()) ? existingUser.getAverageRate() : 0;
         Double newAverageRate = (existingAverageRate + comment.getRate()) / comments.size();
         existingUser.setAverageRate(newAverageRate);
 

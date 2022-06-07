@@ -14,22 +14,9 @@ import java.util.List;
 @Builder(access = AccessLevel.PRIVATE)
 public class Availability {
 
-    public static Availability empty() {
-        return Availability.builder()
-                .mon(Collections.emptyList())
-                .tue(Collections.emptyList())
-                .wed(Collections.emptyList())
-                .thu(Collections.emptyList())
-                .fri(Collections.emptyList())
-                .sat(Collections.emptyList())
-                .sun(Collections.emptyList())
-                .build();
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ElementCollection
     private List<Integer> mon;
     @ElementCollection
@@ -44,4 +31,16 @@ public class Availability {
     private List<Integer> sat;
     @ElementCollection
     private List<Integer> sun;
+
+    public static Availability empty() {
+        return Availability.builder()
+                .mon(Collections.emptyList())
+                .tue(Collections.emptyList())
+                .wed(Collections.emptyList())
+                .thu(Collections.emptyList())
+                .fri(Collections.emptyList())
+                .sat(Collections.emptyList())
+                .sun(Collections.emptyList())
+                .build();
+    }
 }

@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +25,10 @@ class CategoryController {
 
     private final CategoryService categoryService;
 
-    @Operation(operationId = "getAllCategories", summary = "Retrieve All Categories", tags = {"Category"},
+    @Operation(operationId = "getAllCategories",
+            summary = "Retrieve All Categories",
+            tags = {"Category"},
+            description = "Usługa służąca do pobierania kategorii w których można utworzyć ogłoszenie.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,

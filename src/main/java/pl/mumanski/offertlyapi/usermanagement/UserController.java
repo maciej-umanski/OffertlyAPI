@@ -31,6 +31,7 @@ class UserController {
     private final UserService userService;
 
     @Operation(operationId = "createUser", summary = "Create User", tags = {"User"},
+            description = "Usługa służąca do rejestracji w systemie nowego użytkownika.",
             responses = {
                     @ApiResponse(responseCode = "201", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -43,10 +44,11 @@ class UserController {
     public ResponseEntity<UserDto> createUser(@RequestBody CreateUserDto createUserDto) {
         User user = userService.register(createUserDto);
         UserDto userDto = UserMapper.INSTANCE.toUserDto(user);
-        return new ResponseEntity<>(userDto, HttpStatus.CREATED); // todo: EH jak login taki sam
+        return new ResponseEntity<>(userDto, HttpStatus.CREATED);
     }
 
     @Operation(operationId = "getUser", summary = "Retrieve User", tags = {"User"},
+            description = "Usługa służąca do pobierania z systemu konkretnego użytkownika.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -68,6 +70,7 @@ class UserController {
     }
 
     @Operation(operationId = "getAllUsers", summary = "Retrieve All Users", tags = {"User"},
+            description = "Usługa służąca do pobierania z systemu wszystkich użytkowników",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -92,6 +95,7 @@ class UserController {
     }
 
     @Operation(operationId = "authenticateUser", summary = "Authenticate User", tags = {"User"},
+            description = "Usługa służąca do autentykacji konkretnego użytkownika w systemie.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -115,6 +119,7 @@ class UserController {
     }
 
     @Operation(operationId = "putUser", summary = "Update User", tags = {"User"},
+            description = "Usługa służąca do zaktualizowania w systemie konkretnego użytkownika o nowe dane.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -136,7 +141,8 @@ class UserController {
         }
     }
 
-    @Operation(operationId = "addComment", summary = "Add Comment to User", tags = {"Comment"},
+    @Operation(operationId = "addComment", summary = "Add Comment to User", tags = {"User"},
+            description = "Usługa służąca do dodania nowego komentarza do konkretnego użytkownika",
             responses = {
                     @ApiResponse(responseCode = "201", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -159,6 +165,7 @@ class UserController {
     }
 
     @Operation(operationId = "deleteUser", summary = "Delete User", tags = {"User"},
+            description = "Usługa służąca do usunięcia konkretnego użytkownika z systemu. Usuwa także jego wszystkie ogłoszenia",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,

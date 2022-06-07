@@ -9,10 +9,16 @@ import java.util.List;
 
 public interface UserService {
     List<User> getAllUsers();
+
     User getUserById(Long id);
+
     User getUserByCredentials(String username, String password);
+
     User register(CreateUserDto createUserDto);
+
     User put(UpdateUserDto updateUserDto, Long Id);
+
     User addComment(CreateCommentDto createCommentDto, Long id);
+
     void deleteUser(Long id);
 }

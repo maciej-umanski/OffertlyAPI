@@ -29,6 +29,7 @@ class PostController {
     private final PostService postService;
 
     @Operation(operationId = "createPost", summary = "Create Post", tags = {"Post"},
+            description = "Usługa służąca do utworzenia obiektu ogłoszenia w systemie.  ",
             responses = {
                     @ApiResponse(responseCode = "201", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -45,6 +46,7 @@ class PostController {
     }
 
     @Operation(operationId = "getPost", summary = "Retrieve Post", tags = {"Post"},
+            description = "Usługa służąca do pobierania z systemu konkretnego ogłoszenia",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -66,6 +68,7 @@ class PostController {
     }
 
     @Operation(operationId = "getAllPosts", summary = "Retrieve All Posts", tags = {"Post"},
+            description = "Usługa służąca do pobierania z systemu wszystkich ogłoszeń",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -92,6 +95,7 @@ class PostController {
     }
 
     @Operation(operationId = "reportPost", summary = "Report Post", tags = {"Post"},
+            description = "Usługa służąca do zgłoszenia konkretnego ogłoszenia do administracji.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -112,6 +116,7 @@ class PostController {
     }
 
     @Operation(operationId = "deletePost", summary = "Delete Post", tags = {"Post"},
+            description = "Usługa służąca do usunięcia z systemu konkretnego ogłoszenia",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
