@@ -39,7 +39,7 @@ class CategoryController {
             }
     )
     @RequestMapping(method = RequestMethod.GET, value = "/category", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CategoryDto>> getUser() {
+    public ResponseEntity<List<CategoryDto>> getCategories() {
         List<CategoryDto> categories = categoryService.getAllCategories()
                 .stream()
                 .map(CategoryMapper.INSTANCE::toCategoryDto)
