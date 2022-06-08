@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Schema
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class CreateCategoryDto {
     private String namePl;
     private String nameEng;

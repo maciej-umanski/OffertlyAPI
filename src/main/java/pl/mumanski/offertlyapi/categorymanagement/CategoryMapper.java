@@ -13,4 +13,5 @@ interface CategoryMapper {
     Category toCategory(CreateCategoryDto createCategoryDto);
 
     CategoryDto toCategoryDto(Category category);
+    CreateCategoryDto toCreateCategoryDto(Category category);
 }

@@ -1,12 +1,14 @@
 package pl.mumanski.offertlyapi.usermanagement.model.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 @Schema
+@Builder
 public class UpdateUserDto {
     private String password;
     private String name;
